@@ -1,0 +1,11 @@
+# ai
+langgraph==0.3.18
+langchain-core==0.3.46
+langchain-openai==0.3.9
+langchain-gigachat==0.3.8
+gigachat==0.1.39
+
+# other
+python-dotenv==1.0.1
+
+ruff==0.11.1
