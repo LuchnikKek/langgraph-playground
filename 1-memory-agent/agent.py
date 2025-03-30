@@ -1,12 +1,10 @@
-from dotenv import load_dotenv, find_dotenv
+from dotenv import find_dotenv, load_dotenv
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_openai import ChatOpenAI
-from langgraph.graph import MessagesState, START, StateGraph
-from langgraph.prebuilt import ToolNode, tools_condition
 from langgraph.checkpoint.memory import MemorySaver
-
+from langgraph.graph import START, MessagesState, StateGraph
+from langgraph.prebuilt import ToolNode, tools_condition
 from tools import TOOLS
-
 
 load_dotenv(find_dotenv())
 
@@ -22,7 +20,8 @@ llm_with_tools = llm.bind_tools(TOOLS)
 
 # System message
 SYSTEM_MESSAGE = SystemMessage(
-    content="You are a helpful assistant tasked with performing arithmetic on a set of inputs.")
+    content="You are a helpful assistant tasked with performing arithmetic on a set of inputs."
+)
 
 # Node
 
@@ -61,17 +60,18 @@ if __name__ == "__main__":
     config = {"configurable": {"thread_id": "1"}}
 
     # Specify an input
-    msg1 = [HumanMessage(content="Add 3 and 4."),]
+    msg1 = [HumanMessage(content="Add 3 and 4.")]
+
     msg1 = react_graph_memory.invoke({"messages": msg1}, config)
-    for m in msg1['messages']:
+    for m in msg1["messages"]:
         m.pretty_print()
 
-    msg2 = [HumanMessage(content="Multiply that by 8."),]
+    msg2 = [HumanMessage(content="Multiply that by 8.")]
     msg2 = react_graph_memory.invoke({"messages": msg2}, config)
-    for m in msg2['messages']:
+    for m in msg2["messages"]:
         m.pretty_print()
 
-    msg3 = [HumanMessage(content="Divide by 6."),]
+    msg3 = [HumanMessage(content="Divide by 6.")]
     msg3 = react_graph_memory.invoke({"messages": msg3}, config)
-    for m in msg3['messages']:
+    for m in msg3["messages"]:
         m.pretty_print()
